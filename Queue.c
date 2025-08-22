@@ -1,5 +1,5 @@
 #include<stdio.h>
-# define MAX 3
+# define MAX 5
 int main(){
     int queue[MAX], front = -1,rear=-1, choice, value;
     while(1){

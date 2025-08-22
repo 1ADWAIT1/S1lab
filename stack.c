@@ -1,5 +1,5 @@
 #include<stdio.h>
-# define MAX 10
+# define MAX 5
 int main(){
     int stack[MAX], top = -1, choice, value;
     while(1){
