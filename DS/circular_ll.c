@@ -1,24 +1,63 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 struct Node {
     int data;
     struct Node* next;
+    struct Node* prev;
 };
-struct Node* newNode(){
+
+struct Node* newNode() {
     int value;
     printf("Enter value to insert: ");
     scanf("%d", &value);
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = value;
     newNode->next = NULL;
+    newNode->prev = NULL;
     return newNode;
 }
-int main(){
+
+struct Node* inend(struct Node* head) {
+    struct Node* newNode1 = newNode();
+    if (head == NULL) {
+        head = newNode1;
+        newNode1->next = head;
+        newNode1->prev = head;
+    } else {
+        struct Node* ptr = head;
+        while (ptr->next != head) {  
+            ptr = ptr->next;
+        }
+        ptr->next = newNode1;
+        newNode1->prev = ptr;
+        newNode1->next = head;
+        head->prev = newNode1;
+    }
+    return head;
+}
+
+struct Node* infront(struct Node* head) {
+    struct Node* newNode1 = newNode();
+    if (head == NULL) {
+        head = newNode1;
+        newNode1->next = head;
+        newNode1->prev = head;
+    } else {
+        newNode1->next = head;
+        newNode1->prev = head->prev;
+        head->prev->next = newNode1;
+        head->prev = newNode1;
+        head = newNode1;
+    }
+    return head;
+}
+
+int main() {
     struct Node* head = NULL;
-    int choice=1, value=0;
-    
-    while(1){
-        printf("\n1. Insert at end\n");
+    int choice = 1;
+    while (1) {
+        printf("1. Insert at end\n");
         printf("2. Insert at front\n");
         printf("3. Insert at position\n");
         printf("4. Delete from front\n");
@@ -29,24 +68,14 @@ int main(){
         printf("9. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
+
         switch (choice) {
             case 1: {
-                struct Node* newNode1 = newNode();
-                if (head == NULL) {
-                    head = newNode1;
-                } else {
-                    struct Node* ptr = head;
-                    while (ptr->next != NULL) {
-                        ptr = ptr->next;
-                    }
-                    ptr->next = newNode1;
-                }
+                head = inend(head);     
                 break;
             }
             case 2: {
-                struct Node* newNode1 = newNode();
-                newNode1->next = head;
-                head = newNode1;
+                head = infront(head);
                 break;
             }
             case 3: {
@@ -55,29 +84,36 @@ int main(){
                 scanf("%d", &pos);
                 struct Node* newNode1 = newNode();
                 if (pos == 0) {
-                    newNode1->next = head;
-                    head = newNode1;
+                    head = infront(head);
                 } else {
                     struct Node* ptr = head;
-                    int i;
-                    for (i = 0; i < pos - 1 && ptr != NULL; i++) {
+                    for (int i = 0; i < pos - 1 && ptr != NULL; i++) {
                         ptr = ptr->next;
                     }
                     if (ptr == NULL) {
                         printf("Position out of bounds. Inserting at end.\n");
-                        free(newNode1);
+                        head = inend(head);
                     } else {
                         newNode1->next = ptr->next;
+                        if (ptr->next != NULL) {
+                            ptr->next->prev = newNode1;
+                        }
                         ptr->next = newNode1;
+                        newNode1->prev = ptr;
                     }
                 }
-                break;
+                break;    
             }
             case 4: {
                 if (head == NULL) {
                     printf("List is empty. Cannot delete.\n");
+                } else if (head->next == head) {
+                    free(head);
+                    head = NULL;
                 } else {
                     struct Node* temp = head;
+                    head->prev->next = head->next;
+                    head->next->prev = head->prev;
                     head = head->next;
                     free(temp);
                 }
@@ -86,16 +122,14 @@ int main(){
             case 5: {
                 if (head == NULL) {
                     printf("List is empty. Cannot delete.\n");
-                } else if (head->next == NULL) {
+                } else if (head->next == head) {
                     free(head);
                     head = NULL;
                 } else {
-                    struct Node* ptr = head;
-                    while (ptr->next != NULL && ptr->next->next != NULL) {
-                        ptr = ptr->next;
-                    }
-                    free(ptr->next);
-                    ptr->next = NULL;
+                    struct Node* temp = head->prev;
+                    head->prev = temp->prev;
+                    temp->prev->next = head;
+                    free(temp);
                 }
                 break;
             }
@@ -105,23 +139,19 @@ int main(){
                 scanf("%d", &pos);
                 if (head == NULL) {
                     printf("List is empty. Cannot delete.\n");
-                } else if (pos == 0) {
-                    struct Node* temp = head;
-                    head = head->next;
-                    free(temp);
                 } else {
                     struct Node* ptr = head;
-                    for (int i = 0; i < pos - 1; i++) {
-                        if (ptr->next == NULL) {
-                            printf("Position out of bounds. Cannot delete.\n");
-                            break;
-                        }
+                    for (int i = 0; i < pos && ptr != head; i++) {
                         ptr = ptr->next;
                     }
-                    if (ptr->next != NULL) {
-                        struct Node* temp = ptr->next;
-                        ptr->next = ptr->next->next;
-                        free(temp);
+                    if (ptr == head) {
+                        printf("Position out of bounds. Cannot delete.\n");
+                    } else {
+                        ptr->prev->next = ptr->next;
+                        if (ptr->next != NULL) {
+                            ptr->next->prev = ptr->prev;
+                        }
+                        free(ptr);
                     }
                 }
                 break;
@@ -132,30 +162,31 @@ int main(){
                 } else {
                     printf("List elements: ");
                     struct Node* ptr = head;
-                    while (ptr != NULL) {
+                    do {
                         printf("%d ", ptr->data);
                         ptr = ptr->next;
-                    }
+                    } while (ptr != head);  
                     printf("\n");
                 }
                 break;
             }
             case 8: {
                 if (head == NULL) {
-                    printf("List is empty. Cannot search.\n");
+                    printf("List is empty.\n");
                 } else {
+                    int value;
                     printf("Enter value to search: ");
                     scanf("%d", &value);
                     struct Node* ptr = head;
                     int found = 0;
-                    while (ptr != NULL) {
+                    do {
                         if (ptr->data == value) {
                             printf("Value %d found in the list.\n", value);
                             found = 1;
                             break;
                         }
                         ptr = ptr->next;
-                    }
+                    } while (ptr != head);
                     if (!found) {
                         printf("Value %d not found in the list.\n", value);
                     }
