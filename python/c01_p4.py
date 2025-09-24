@@ -1,0 +1,10 @@
+#arithmetic operations
+n1=int(input("enter first number:"))
+n2=int(input("enter second number:"))
+print("sum:",n1+n2)
+print("difference:",n1-n2)
+print("product:",n1*n2)
+print("quotient:",n1/n2)
+print("floor division:",n1//n2)
+print("remainder:",n1%n2)
+print("exponent:",n1**n2)
