@@ -1,0 +1,14 @@
+    pre {
+      overflow-x: auto;
+      border-left: 4px solid  #0066ff;
+      padding: 1em;
+      margin: 1rem 0;
+      background: #f7f9fb;
+    }
+
+        footer {
+      margin-top: 48px;
+font-size: 14px;
+      color: #888;
+      text-align: center;
+    }

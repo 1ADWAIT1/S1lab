@@ -1,0 +1,27 @@
+<html>
+<head></head>
+<body>
+    <p id="abc"></p>
+    <script>
+        var d="<table BORDER='1'><tr><th>SUN</th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th></tr>";
+        
+        var c=new Date(2025,0);
+        var day=c.getDay();
+        for(var i=0;i<day;i++){
+            d+="<td></td>";
+        }
+        while(c.getMonth()==0){
+            if(c.getDay()==0){
+                d+="</tr><tr>";
+            }
+            d+="<td>"+c.getDate()+"</td>";
+            c.setDate(c.getDate()+1);
+        }
+        var t="</tr></table>";
+        d+=t;
+        document.getElementById("abc").innerHTML=d;
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Calendar</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 40px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .weekend {
+            color: red;
+            font-weight: bold;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+        }
+
+        .controls select,
+        .controls input {
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calendar</h1>
+    <div class="controls">
+        <select id="monthSelector" onchange="updateCalendar()"></select>
+        <input id="yearInput" type="number" onchange="updateCalendar()">
+    </div>
+    <div id="calendarDisplay"></div>
+
+    <script>
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        let monthSelector = document.getElementById("monthSelector");
+        let yearInput = document.getElementById("yearInput");
+
+        function populateControls() {
+            // Populate month dropdown
+            months.forEach((month, index) => {
+                let option = document.createElement("option");
+                option.value = index;
+                option.textContent = month;
+                monthSelector.appendChild(option);
+            });
+
+            // Set current month and year
+            const today = new Date();
+            monthSelector.value = today.getMonth();
+            yearInput.value = today.getFullYear();
+        }
+
+        function renderCalendar() {
+            let currentYear = parseInt(yearInput.value);
+            let currentMonth = parseInt(monthSelector.value);
+
+            if (isNaN(currentYear) || currentYear < 1) {
+                document.getElementById("calendarDisplay").innerHTML = "<p style='color:red;'>Please enter a valid year.</p>";
+                return;
+            }
+
+            let firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            let daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            let table = "<table>";
+            table += "<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr><tr>";
+
+            for (let i = 0; i < firstDay; i++) {
+                table += "<td></td>";
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                let date = new Date(currentYear, currentMonth, day);
+                let currentDay = date.getDay();
+
+                if (currentDay === 0 && day !== 1) {
+                    table += "</tr><tr>";
+                }
+
+                if (currentDay === 0 || currentDay === 6) {
+                    table += `<td class="weekend">${day}</td>`;
+                } else {
+                    table += `<td>${day}</td>`;
+                }
+            }
+        
+            let lastDay = new Date(currentYear, currentMonth, daysInMonth).getDay();
+            let remainingCells = (lastDay === 6) ? 0 : 6 - lastDay;
+            for (let i = 0; i < remainingCells; i++) {
+                table += "<td></td>";
+            }
+            
+            table += "</tr></table>";
+
+            document.getElementById("calendarDisplay").innerHTML = table;
+        }
+
+        function updateCalendar() {
+            renderCalendar();
+        }
+
+        // Initialize the page
+        populateControls();
+        renderCalendar();
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<html>
+<head></head>
+<body>
+    Month: 
+    <select id="month">
+        <option value="0">January</option>
+        <option value="1">February</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+    </select>
+    Year: <input type="number" id="year" value="2025" min="1900" max="2100" style="width:70px;">
+    <button onclick="generateCalendar()">Show</button>
+    <p id="abc"></p>
+    <script>
+        function generateCalendar() {
+            var m = parseInt(document.getElementById("month").value);
+            var y = parseInt(document.getElementById("year").value);
+
+            var d="<table BORDER='1'><tr><th>SUN</th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th></tr><tr>";
+            
+            var c = new Date(y, m, 1);
+            var day = c.getDay();
+
+            for(var i=0; i<day; i++){
+                d+="<td></td>";
+            }
+            
+            while(c.getMonth() == m){
+                if(c.getDay() == 0 && c.getDate() != 1){
+                    d+="</tr><tr>";
+                }
+                d+="<td>" + c.getDate() + "</td>";
+                c.setDate(c.getDate() + 1);
+            }
+            d+="</tr></table>";
+            document.getElementById("abc").innerHTML = d;
+        }
+        generateCalendar();
+    </script>
+</body>
+</html>

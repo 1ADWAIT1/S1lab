@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>String And Math Functions</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <h2 align="Center">String Functions</h2>
+    <hr>
+
+    Length Of The String <input id="String" type="Text" placeholder="Enter A String">
+    <button onclick="StringLength()">Click Here</button>
+    <p id="Stringpara"></p>
+
+    Concat String <input id="String1" type="Text" placeholder="Enter A String 1">
+    <input id="String2" type="Text" placeholder="Enter A String 2">
+    <button onclick="Concat()">Concat</button>
+    <p id="Stringpara1"></p>
+
+    Upper Case <input id="Str" type="Text" placeholder="Enter A String 1">
+    <button onclick="upper()">UpperCase</button>
+    <p id="Stringpara3"></p>
+
+    Lowercase <input id="string3" type="text" placeholder="Enter The String">
+    <button onclick="lower()">Lowercase</button>
+    <p id="para4"></p>
+
+    <!-- New string functions -->
+    Trim <input id="trimStr" type="text" placeholder="Enter String with spaces">
+    <button onclick="trim()">Trim</button>
+    <p id="trimPara"></p>
+
+    Slice <input id="sliceStr" type="text" placeholder="Enter String">
+    Start Index <input id="sliceStart" type="number" placeholder="Start">
+    End Index <input id="sliceEnd" type="number" placeholder="End">
+    <button onclick="sliceStr()">Slice</button>
+    <p id="slicePara"></p>
+
+    Replace <input id="replaceStr" type="text" placeholder="Enter String">
+    <input id="replaceFrom" type="text" placeholder="Replace">
+    <input id="replaceTo" type="text" placeholder="With">
+    <button onclick="replaceStr()">Replace</button>
+    <p id="replacePara"></p>
+
+    <h2 align="Center">Math Functions</h2>
+    <hr>
+
+    Number 1: <input id="num1" type="number" placeholder="Enter Number 1">
+    Number 2: <input id="num2" type="number" placeholder="Enter Number 2">
+
+    <br><br>
+    <button onclick="add()">Add</button>
+    <button onclick="subtract()">Subtract</button>
+    <button onclick="multiply()">Multiply</button>
+    <button onclick="divide()">Divide</button>
+    <button onclick="power()">Power</button>
+
+    <p id="Mathpara"></p>
+
+    <script>
+        function StringLength() {
+            let x = document.getElementById("String").value;
+            document.getElementById("Stringpara").innerHTML = "Length Of The String: " + x.length;
+        }
+
+        function Concat() {
+            let x = document.getElementById("String1").value;
+            let y = document.getElementById("String2").value;
+            document.getElementById("Stringpara1").innerHTML = "Concatenated String: " + x.concat(y);
+        }
+
+        function upper() {
+            let x = document.getElementById("Str").value;
+            document.getElementById("Stringpara3").innerHTML = "Upper Cased Text: " + x.toUpperCase();
+        }
+
+        function lower() {
+            let x = document.getElementById("string3").value;
+            document.getElementById("para4").innerHTML = "Lowercase: " + x.toLowerCase();
+        }
+
+
+        function trim() {
+            let x = document.getElementById("trimStr").value;
+            document.getElementById("trimPara").innerHTML = "Trimmed String: '" + x.trim() + "'";
+        }
+
+        function sliceStr() {
+            let str = document.getElementById("sliceStr").value;
+            let start = parseInt(document.getElementById("sliceStart").value);
+            let end = parseInt(document.getElementById("sliceEnd").value);
+            if (isNaN(start) || isNaN(end)) {
+                document.getElementById("slicePara").innerHTML = "Please enter valid start and end indices.";
+                return;
+            }
+            document.getElementById("slicePara").innerHTML = "Sliced String: " + str.slice(start, end);
+        }
+
+        function replaceStr() {
+            let str = document.getElementById("replaceStr").value;
+            let from = document.getElementById("replaceFrom").value;
+            let to = document.getElementById("replaceTo").value;
+            if(from === "") {
+                document.getElementById("replacePara").innerHTML = "Enter the substring to replace.";
+                return;
+            }
+            let result = str.replace(from, to);
+            document.getElementById("replacePara").innerHTML = "Result: " + result;
+        }
+
+
+        function add() {
+            let a = parseFloat(document.getElementById("num1").value);
+            let b = parseFloat(document.getElementById("num2").value);
+            if (isNaN(a) || isNaN(b)) {
+                document.getElementById("Mathpara").innerHTML = "Please enter valid numbers.";
+                return;
+            }
+            document.getElementById("Mathpara").innerHTML = `Sum: ${a + b}`;
+        }
+
+        function subtract() {
+            let a = parseFloat(document.getElementById("num1").value);
+            let b = parseFloat(document.getElementById("num2").value);
+            if (isNaN(a) || isNaN(b)) {
+                document.getElementById("Mathpara").innerHTML = "Please enter valid numbers.";
+                return;
+            }
+            document.getElementById("Mathpara").innerHTML = `Difference: ${a - b}`;
+        }
+
+        function multiply() {
+            let a = parseFloat(document.getElementById("num1").value);
+            let b = parseFloat(document.getElementById("num2").value);
+            if (isNaN(a) || isNaN(b)) {
+                document.getElementById("Mathpara").innerHTML = "Please enter valid numbers.";
+                return;
+            }
+            document.getElementById("Mathpara").innerHTML = `Product: ${a * b}`;
+        }
+
+        function divide() {
+            let a = parseFloat(document.getElementById("num1").value);
+            let b = parseFloat(document.getElementById("num2").value);
+            if (isNaN(a) || isNaN(b)) {
+                document.getElementById("Mathpara").innerHTML = "Please enter valid numbers.";
+                return;
+            }
+            if (b === 0) {
+                document.getElementById("Mathpara").innerHTML = "Cannot divide by zero.";
+                return;
+            }
+            document.getElementById("Mathpara").innerHTML = `Quotient: ${a / b}`;
+        }
+
+        function power() {
+            let a = parseFloat(document.getElementById("num1").value);
+            let b = parseFloat(document.getElementById("num2").value);
+            if (isNaN(a) || isNaN(b)) {
+                document.getElementById("Mathpara").innerHTML = "Please enter valid numbers.";
+                return;
+            }
+            document.getElementById("Mathpara").innerHTML = `Power: ${Math.pow(a, b)}`;
+        }
+
+    </script>
+</body>
+</html>
