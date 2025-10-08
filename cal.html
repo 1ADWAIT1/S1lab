@@ -1,8 +1,28 @@
 <html>
-<head></head>
-<body>
+<head>
+    <style>
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 40px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        
+    </style>
+</head>
+<body align="center">
     Month: 
-    <select id="month">
+    <select id="month" onclick="generateCalendar()">
         <option value="0">January</option>
         <option value="1">February</option>
         <option value="2">March</option>
@@ -16,9 +36,9 @@
         <option value="10">November</option>
         <option value="11">December</option>
     </select>
-    Year: <input type="number" id="year" value="2025" min="1900" max="2100" style="width:70px;">
-    <button onclick="generateCalendar()">Show</button>
-    <p id="abc"></p>
+    Year: <input type="number" id="year" value="2025" min="1900" max="2100" style="width:70px;" onclick="generateCalendar()">
+    
+    <p id="abc" align="center"></p>
     <script>
         function generateCalendar() {
             var m = parseInt(document.getElementById("month").value);

@@ -1,0 +1,21 @@
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <p id="abc"></p>
+        <script>
+            const cars=new Array("BMW","Volvo","Maruthi","Ford");
+            cars.pop();
+            cars.push("Tata");
+            cars.join("*");
+            var str="<ul>";
+                cars.push("Tata");
+            for(let i=0;i<cars.length;i++){
+                str+="<li>"+cars[i]+"</li>";
+            }
+            str+="</ul>";
+            document.getElementById("abc").innerHTML=str;
+        </script>
+    </body>
+</html>

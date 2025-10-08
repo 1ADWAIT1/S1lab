@@ -1,0 +1,16 @@
+<html>
+    <body>
+        <button id="abc">  Click Me  </button>
+    <script>
+        document.getElementById("abc").addEventListener("click", myFunction);
+        function myFunction() {
+            var rcol="";
+            for(var i=0;i<6;i++){
+                rcol += Math.floor(Math.random()*10);
+            }
+            document.body.style.backgroundColor = "#"+rcol;
+        };
+    </script>
+    </body>
+
+</html>

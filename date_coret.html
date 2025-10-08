@@ -58,15 +58,13 @@
         let yearInput = document.getElementById("yearInput");
 
         function populateControls() {
-            // Populate month dropdown
+        
             months.forEach((month, index) => {
                 let option = document.createElement("option");
                 option.value = index;
                 option.textContent = month;
                 monthSelector.appendChild(option);
             });
-
-            // Set current month and year
             const today = new Date();
             monthSelector.value = today.getMonth();
             yearInput.value = today.getFullYear();
@@ -120,8 +118,6 @@
         function updateCalendar() {
             renderCalendar();
         }
-
-        // Initialize the page
         populateControls();
         renderCalendar();
     </script>
