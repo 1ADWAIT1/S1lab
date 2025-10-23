@@ -1,9 +1,10 @@
 //Binary Search Tree Operations
 #include<stdio.h>
+#include<stdlib.h>
 struct Node
 {
     int data;
-    struct node *left,*right;
+    struct Node *left,*right;
 };
 struct Node* newNode(int item)
 {
@@ -65,7 +66,7 @@ struct Node* search(struct Node* root,int data)
         return search(root->left,data);
     return search(root->right,data);
 }
-struct Node* inorder(struct Node* root)
+void inorder(struct Node* root)
 {
     if(root!=NULL)
     {
@@ -74,7 +75,7 @@ struct Node* inorder(struct Node* root)
         inorder(root->right);
     }
 }
-struct Node* preorder(struct Node* root)
+void preorder(struct Node* root)
 {
     if(root!=NULL)
     {
@@ -83,7 +84,7 @@ struct Node* preorder(struct Node* root)
         preorder(root->right);
     }
 }
-struct Node* postorder(struct Node* root)
+void postorder(struct Node* root)
 {
     if(root!=NULL)
     {
@@ -95,8 +96,9 @@ struct Node* postorder(struct Node* root)
 struct Node* display(struct Node* root)
 {
     int choice;
-    printf("1.Inorder\n2.Preorder\n3.Postorder\n");
-    choice=int(input("Enter choice:"));
+    printf("\n1.Inorder\n2.Preorder\n3.Postorder\n");
+    printf("Enter choice:");
+    scanf("%d",&choice);
     switch(choice)
     {
         case 1: inorder(root);
@@ -112,20 +114,25 @@ void main()
 {
     int choice,value;
     struct Node *root=NULL;
+    while(1){
     printf("1.Insert\n2.Delete\n3.Search\n4.Display\n5.Exit\n");
-    choice=int(input("Enter choice:"));
+    printf("Enter your choice:");
+    scanf("%d",&choice);
     switch(choice)
     {
         case 1:
-                value=int(input("Enter value to be inserted:"));
+                printf("Enter value to be inserted:");
+                scanf("%d",&value);
                 root=insert(root,value);
                 break;
         case 2: 
-                value=int(input("Enter value to be deleted:"));
+                printf("Enter value to be deleted:");
+                scanf("%d",&value);
                 root=delete(root,value);
                 break;
         case 3:
-                value=int(input("Enter value to be searched:"));
+                printf("Enter value to be searched:");
+                scanf("%d",&value);
                 struct Node* result=search(root,value);
                 if(result==NULL)
                     printf("Not found");
@@ -137,8 +144,8 @@ void main()
                 break;
         case 5: 
             exit(0);
-                break;
+            break;
         default: printf("Invalid choice");
     }
 
-}
+}}
