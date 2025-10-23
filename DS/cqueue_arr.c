@@ -8,7 +8,7 @@ typedef struct circularQueue {
 } CircularQueue;
 void enqueue(CircularQueue* q) {
     if ((q->rear + 1) % MAX == q->front) {
-        printf("Queue Overflow\n");              //full now
+        printf("Queue Overflow\n");             
         return;
     }
     if (q->front == -1) {
@@ -28,7 +28,7 @@ void dequeue(CircularQueue* q) {
     }
     int dequeued_value = q->arr[q->front];
     if (q->front == q->rear) {
-        q->front = q->rear = -1;                  // Que empty
+        q->front = q->rear = -1;                 
     } else {
         q->front = (q->front + 1) % MAX;
     }

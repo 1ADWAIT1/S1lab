@@ -7,4 +7,3 @@ for i in string:
     else:
         freq[i]=1
 print("frequency of each character in a string is:",freq)
-
