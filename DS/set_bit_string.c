@@ -64,7 +64,6 @@ int main() {
         printf("9. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-
         switch (choice) {
             case 1:
                 printf("Enter element to add to A (0–%d): ", UNIVERSE_SIZE - 1);
@@ -101,7 +100,7 @@ int main() {
                     printf("%d is not in A.\n", elem);
                 break;
             case 9:
-                exit(0);
+                return 0;
             default:
                 printf("Invalid choice!\n");
         }

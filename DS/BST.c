@@ -110,7 +110,7 @@ struct Node* display(struct Node* root)
         default: printf("Invalid choice");
     }
 }
-void main()
+int main()
 {
     int choice,value;
     struct Node *root=NULL;
@@ -143,9 +143,10 @@ void main()
             display(root);
                 break;
         case 5: 
-            exit(0);
+            return 0;
             break;
         default: printf("Invalid choice");
     }
 
-}}
+}return 0;
+}
