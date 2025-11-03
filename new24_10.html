@@ -1,0 +1,25 @@
+<html>
+    <title>
+
+    </title>
+    <body>
+        <script>
+       
+        function myfunction(){
+            let x=document.forms["myform"]["abc"].value;
+            if(isNaN(x)||x=="")
+            alert("please enter a number");
+            
+        }
+
+        </script>
+        
+        <form name="myform"
+            onsubmit="myfunction()"><input type="text" id="abc"/>
+        <button onclick="myfunction()">button</button>
+        </form>
+        <form >
+        </form>
+        
+    </body>
+</html>

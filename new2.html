@@ -1,0 +1,26 @@
+<html>
+    <title>
+
+    </title>
+    <body>
+        <script>
+       
+        function myfunction(){
+            
+            let x=document.forms["myform"]["abc"].value;
+            if(x==""){
+                event.preventDefault();
+                document.getElementById("a").innerHTML="name must be filled";
+            }   
+        }
+
+        </script>
+
+        <form name="myform" onsubmit="myfunction()">
+            <input type="text" id="abc" name="abc"/>
+            <p id="a" style="color: crimson;"></p>
+        <input type="submit"/>
+        </form>
+        
+    </body>
+</html>
