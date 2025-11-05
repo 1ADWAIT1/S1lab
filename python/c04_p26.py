@@ -1,7 +1,6 @@
 class Publisher:
     def __init__(self, name):
         self.name = name
-        print("Publisher constructor called")
     def display(self):
         print(f"Publisher: {self.name}")
 class Book(Publisher):
@@ -9,7 +8,6 @@ class Book(Publisher):
         super().__init__(name)
         self.title = title
         self.author = author
-        print("Book constructor called")
     def display(self):
         super().display()
         print(f"Title: {self.title}")
@@ -19,12 +17,11 @@ class Python(Book):
         super().__init__(name, title, author)
         self.price = price
         self.pages = pages
-        print("Python constructor called")
     def display(self):
         super().display()
         print(f"Price: ₹{self.price}")
         print(f"Pages: {self.pages}")
 if __name__ == "__main__":
     p = Python("O'Reilly Media", "Learning Python", "Mark Lutz", 950, 1648)
-    print("\n--- Book Details ---")
+    print("\nBook Details:")
     p.display()
