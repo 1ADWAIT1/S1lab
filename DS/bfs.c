@@ -1,42 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX 100 
-struct Queue {
-    int items[MAX];
-    int front;
-    int rear;
-};
-void initQueue(struct Queue *q) {
-    q->front = -1;
-    q->rear = -1;
-}
-int isEmpty(struct Queue *q) {
-    return q->rear == -1;
-}
-void enqueue(struct Queue *q, int value) {
-    if (q->rear == MAX - 1)
-        printf("Queue is full!\n");
-    else {
-        if (q->front == -1)
-            q->front = 0;
-        q->rear++;
-        q->items[q->rear] = value;
-    }
-}
-int dequeue(struct Queue *q) {
-    int item;
-    if (isEmpty(q)) {
-        printf("Queue is empty!\n");
-        return -1;
-    } else {
-        item = q->items[q->front];
-        q->front++;
-        if (q->front > q->rear) {
-            q->front = q->rear = -1;
-        }
-        return item;
-    }
-}
 struct Graph {
     int numVertices;
     int **adjMatrix;
@@ -60,19 +23,18 @@ void addEdge(struct Graph* graph, int src, int dest) {
     graph->adjMatrix[dest][src] = 1;
 }
 void BFS(struct Graph* graph, int startVertex) {
-    struct Queue q;
-    initQueue(&q);
+    int queue[100];
+    int front = 0, rear = 0;
     graph->visited[startVertex] = 1;
-    enqueue(&q, startVertex);
-    printf("BFS Traversal: ");
-    while (!isEmpty(&q)) {
-        int currentVertex = dequeue(&q);
+    queue[rear++] = startVertex;
+    printf("BFS Traversal starting from vertex %d: ", startVertex);
+    while (front < rear) {
+        int currentVertex = queue[front++];
         printf("%d ", currentVertex);
-
         for (int i = 0; i < graph->numVertices; i++) {
             if (graph->adjMatrix[currentVertex][i] == 1 && graph->visited[i] == 0) {
                 graph->visited[i] = 1;
-                enqueue(&q, i);
+                queue[rear++] = i;
             }
         }
     }

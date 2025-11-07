@@ -23,16 +23,16 @@ struct Node* insert(struct Node* node,int data)
         node->right=insert(node->right,data);
     return node;
 }
-struct Node* minValueNode(struct Node* node)
+int minValueNode(struct Node* node)
 {
-    struct Node* current=node;
-    while(current && current->left!=NULL)
-        current=current->left;
-    return current;
+    while(node && node->left!=NULL)
+        node=node->left;
+    return node->data;
 }
 struct Node* delete(struct Node* root,int data)
 {
     if(root==NULL)
+        printf("Deletion not possible\n");
         return root;
     if(data<root->data)
         root->left=delete(root->left,data);
@@ -44,17 +44,18 @@ struct Node* delete(struct Node* root,int data)
         {
             struct Node *temp=root->right;
             free(root);
+            printf("Deleted successfully\n");
             return temp;
         }
         else if(root->right==NULL)
         {
             struct Node *temp=root->left;
             free(root);
+            printf("Deleted successfully\n");
             return temp;
         }
-        struct Node* temp=minValueNode(root->right);
-        root->data=temp->data;
-        root->right=delete(root->right,temp->data);
+        root->data=minValueNode(root->right);
+        root=delete(root,root->data);
     }
     return root;
 }
@@ -147,6 +148,5 @@ int main()
             break;
         default: printf("Invalid choice");
     }
-
 }return 0;
 }
