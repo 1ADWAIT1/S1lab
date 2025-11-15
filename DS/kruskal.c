@@ -59,7 +59,10 @@ void kruskalMST(struct Graph* graph) {
         }
     }
     qsort(edges, totalEdges, sizeof(struct Edge), compare);
-    int included[V][V]={0};
+    int included[V][V];
+    for (int i = 0; i < V; i++)
+        for (int j = 0; j < V; j++)
+            included[i][j] = 0;
     printf("Kruskal's Minimum Spanning Tree:\n");
     for (int i = 0; i < totalEdges && Ecount < V-1; i++) {
         int u = edges[i].src;
