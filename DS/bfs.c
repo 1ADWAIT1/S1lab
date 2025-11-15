@@ -23,7 +23,7 @@ void addEdge(struct Graph* graph, int src, int dest) {
     graph->adjMatrix[dest][src] = 1;
 }
 void BFS(struct Graph* graph, int startVertex) {
-    int queue[100];
+    int *queue=(int*)malloc(graph->numVertices * sizeof(int));
     int front = 0, rear = 0;
     graph->visited[startVertex] = 1;
     queue[rear++] = startVertex;
