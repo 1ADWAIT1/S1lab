@@ -23,7 +23,6 @@ void addEdge(struct Graph* graph, int src, int dest, int weight) {
 }
 int minKey(int key[], int mstSet[], int vertices) {
     int min = INT_MAX, minIndex;
-
     for (int v = 0; v < vertices; v++) {
         if (mstSet[v] == 0 && key[v] < min) {
             min = key[v];
